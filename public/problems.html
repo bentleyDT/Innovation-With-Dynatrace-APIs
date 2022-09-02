@@ -74,7 +74,7 @@
                             <p>
                                 <label>
                                   <input type="checkbox" id="evidenceImpact" value="evidence"/>
-                                  <span>Include Evidence Details and Impact Analysis</span>
+                                  <span>Include Evidence Details and Impact Analysis (Returns max 10 results)</span>
                                 </label>
                               </p>
                             <p>
@@ -93,6 +93,7 @@
 
                 </div>
             </div>
+            <p>Please note: A max of 500 results will be returned</p>
             <div class="divider"></div>
             <div class="row" style="margin-top: 20px;">
                 <table id="example" class="highlight striped centered">
@@ -192,11 +193,14 @@
             }
             if(document.getElementById('evidenceImpact').checked == true){
                 fields = fields+"fields=evidenceDetails%2CimpactAnalysis&";
+                pageSize = 10;
+            }else{
+                pageSize = 500;
             }
             console.log(fields);
-            console.log(tenantURL + '/api/v2/problems?' + fields + 'from=' + from + "&to=" + to + '&Api-Token=' + apiKey);
+            console.log(tenantURL + '/api/v2/problems?' + fields + 'from=' + from + "&to=" + to + '&pageSize=' + pageSize + '&Api-Token=' + apiKey);
 
-            getJSON(tenantURL + '/api/v2/problems?' + fields + 'from=' + from + "&to=" + to + '&Api-Token=' + apiKey,
+            getJSON(tenantURL + '/api/v2/problems?' + fields + 'from=' + from + "&to=" + to + '&pageSize=' + pageSize + '&Api-Token=' + apiKey,
                 function (err, data) {
                     if (err !== null) {
                         alert('Something went wrong: ' + err);
